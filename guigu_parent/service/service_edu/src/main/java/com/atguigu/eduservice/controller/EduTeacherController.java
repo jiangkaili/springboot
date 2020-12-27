@@ -63,7 +63,7 @@ public class EduTeacherController {
     public R pageTeacherCondition(
             @PathVariable long current,
             @PathVariable long limit,
-            @RequestBody(required=false) TeacherQuery teacherQuery) {
+            @RequestBody(required = false) TeacherQuery teacherQuery) {
         Page<EduTeacher> pageTeacher = new Page<>(current, limit);
         QueryWrapper<EduTeacher> wrapper = new QueryWrapper<>();
         String name = teacherQuery.getName();
@@ -74,7 +74,7 @@ public class EduTeacherController {
         if (!StringUtils.isEmpty(name)) {
             wrapper.like("name", name);
         }
-        if (!StringUtils.isEmpty(level)){
+        if (!StringUtils.isEmpty(level)) {
             wrapper.eq("level", level);
         }
         if (!StringUtils.isEmpty(begin)) {
@@ -90,5 +90,30 @@ public class EduTeacherController {
         return R.ok().data("total", total).data("rows", records);
     }
 
+    @PostMapping("addTeacher")
+    public R addTeacher(@RequestBody EduTeacher eduTeacher) {
+        boolean save = eduTeacherService.save(eduTeacher);
+        if (save) {
+            return R.ok();
+        } else {
+            return R.error();
+        }
+    }
+
+    @GetMapping("getTeacher/{id}")
+    public R getTeacher(@PathVariable String id) {
+        EduTeacher eduTeacher = eduTeacherService.getById(id);
+        return R.ok().data("teacher", eduTeacher);
+    }
+
+    @PostMapping("updateTeacher")
+    public R updateTeacher(@RequestBody EduTeacher eduTeacher) {
+        boolean flag = eduTeacherService.updateById(eduTeacher);
+        if (flag) {
+            return R.ok();
+        } else {
+            return R.error();
+        }
+    }
 }
 
