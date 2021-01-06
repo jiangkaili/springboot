@@ -85,6 +85,8 @@ public class EduTeacherController {
             wrapper.le("gmt_create", end);
         }
 
+        wrapper.orderByDesc("gmt_create");
+
         eduTeacherService.page(pageTeacher, wrapper);
         long total = pageTeacher.getTotal();
         List<EduTeacher> records = pageTeacher.getRecords();
