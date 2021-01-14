@@ -28,7 +28,7 @@ public class CodeGenerator {
         String projectPath = System.getProperty("user.dir");
 //        gc.setOutputDir(projectPath + "/src/main/java");
         gc.setOutputDir("/Users/jkl/Opt/javaProjects/springboot-online-stu/guigu_parent/service/service_edu" + "/src/main/java");
-        gc.setAuthor("testjava");
+        gc.setAuthor("jkl");
         gc.setOpen(false); //生成后是否打开资源管理器
         gc.setFileOverride(false); //重新生成时文件是否覆盖
         gc.setServiceName("%sService");	//去掉Service接口的首字母I
