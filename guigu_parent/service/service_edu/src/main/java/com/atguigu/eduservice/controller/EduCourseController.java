@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
  * @since 2021-01-12
  */
 @RestController
-@RequestMapping("/eduservice/edu-course")
+@RequestMapping("/eduservice/course")
 @CrossOrigin
 public class EduCourseController {
 
@@ -25,8 +25,9 @@ public class EduCourseController {
 
     @PostMapping("addCourseInfo")
     public R addCourseInfo(@RequestBody CourseInfoVo courseInfoVo) {
-        eduCourseService.saveCourseInfo(courseInfoVo);
-        return R.ok();
+        String id = eduCourseService.saveCourseInfo(courseInfoVo);
+
+        return R.ok().data("courseId", id);
     }
 }
 
