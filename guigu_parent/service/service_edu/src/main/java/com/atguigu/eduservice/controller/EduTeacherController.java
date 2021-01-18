@@ -32,12 +32,14 @@ public class EduTeacherController {
     @Autowired
     private EduTeacherService eduTeacherService;
 
+
     @ApiOperation(value = "所有讲师列表")
     @GetMapping("findAll")
     public R findAllTeacher() {
         List<EduTeacher> list = eduTeacherService.list(null);
         return R.ok().data("items", list);
     }
+
 
     @ApiOperation(value = "逻辑删除讲师")
     @DeleteMapping("{id}")
@@ -50,6 +52,7 @@ public class EduTeacherController {
         }
     }
 
+
     @GetMapping("pageTeacher/{current}/{limit}")
     public R pageListTeacher(@PathVariable long current, @PathVariable long limit) {
         Page<EduTeacher> pageTeacher = new
@@ -59,6 +62,7 @@ public class EduTeacherController {
         List<EduTeacher> records = pageTeacher.getRecords();
         return R.ok().data("total", total).data("rows", records);
     }
+
 
     @PostMapping("pageTeacherCondition/{current}/{limit}")
     public R pageTeacherCondition(
@@ -93,6 +97,7 @@ public class EduTeacherController {
         return R.ok().data("total", total).data("rows", records);
     }
 
+
     @PostMapping("addTeacher")
     public R addTeacher(@RequestBody EduTeacher eduTeacher) {
         boolean save = eduTeacherService.save(eduTeacher);
@@ -103,11 +108,13 @@ public class EduTeacherController {
         }
     }
 
+
     @GetMapping("getTeacher/{id}")
     public R getTeacher(@PathVariable String id) {
         EduTeacher eduTeacher = eduTeacherService.getById(id);
         return R.ok().data("teacher", eduTeacher);
     }
+
 
     @PostMapping("updateTeacher")
     public R updateTeacher(@RequestBody EduTeacher eduTeacher) {
