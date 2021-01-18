@@ -6,7 +6,7 @@
         select ec.id,
                ec.title,
                ec.price,
-               ec.lesson_num as lessonName,
+               ec.lesson_num as lessonNum,
                ec.cover,
                et.name as teacherName,
                es1.title     as subjectLevelOne,
