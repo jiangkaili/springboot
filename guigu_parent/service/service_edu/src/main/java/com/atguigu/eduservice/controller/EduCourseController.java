@@ -90,13 +90,9 @@ public class EduCourseController {
         }
 
         wrapper.orderByDesc("gmt_create");
-
         eduCourseService.page(pageCourse, wrapper);
-
         long total = pageCourse.getTotal();
-
         List<EduCourse> records = pageCourse.getRecords();
-
         return R.ok().data("total", total).data("rows", records);
     }
 }
