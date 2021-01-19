@@ -9,6 +9,7 @@ import com.atguigu.eduservice.entity.vo.CourseQuery;
 import com.atguigu.eduservice.service.EduCourseService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -93,6 +94,18 @@ public class EduCourseController {
         long total = pageCourse.getTotal();
         List<EduCourse> records = pageCourse.getRecords();
         return R.ok().data("total", total).data("rows", records);
+    }
+
+
+    @ApiOperation(value = "逻辑删除课程")
+    @DeleteMapping("{courseId}")
+    public R removeCourse(@PathVariable String courseId) {
+        boolean flag = eduCourseService.removeById(courseId);
+        if (flag) {
+            return R.ok();
+        } else {
+            return R.error();
+        }
     }
 }
 
