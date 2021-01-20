@@ -5,8 +5,10 @@ import com.atguigu.eduservice.entity.EduCourseDescription;
 import com.atguigu.eduservice.entity.vo.CourseInfoVo;
 import com.atguigu.eduservice.entity.vo.CoursePublishVo;
 import com.atguigu.eduservice.mapper.EduCourseMapper;
+import com.atguigu.eduservice.service.EduChapterService;
 import com.atguigu.eduservice.service.EduCourseDescriptionService;
 import com.atguigu.eduservice.service.EduCourseService;
+import com.atguigu.eduservice.service.EduVideoService;
 import com.atguigu.servicebase.exceptionhandler.GuliException;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.BeanUtils;
@@ -26,6 +28,14 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
 
     @Autowired
     private EduCourseDescriptionService eduCourseDescriptionService;
+
+
+    @Autowired
+    private EduVideoService eduVideoService;
+
+
+    @Autowired
+    private EduChapterService eduChapterService;
 
 
     @Override
@@ -50,6 +60,7 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
         return cid;
     }
 
+
     @Override
     public CourseInfoVo getCourseInfo(String courseId) {
 
@@ -62,6 +73,7 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
 
         return courseInfoVo;
     }
+
 
     @Override
     public void updateCourseInfo(CourseInfoVo courseInfoVo) {
@@ -79,9 +91,22 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
         eduCourseDescriptionService.updateById(eduCourseDescription);
     }
 
+
     @Override
     public CoursePublishVo publishCourseInfo(String courseId) {
         CoursePublishVo publishCourseInfo = baseMapper.getPublishCourseInfo(courseId);
         return publishCourseInfo;
+    }
+
+
+    @Override
+    public void removeCourse(String courseId) {
+        eduVideoService.removeVideoByCourseId(courseId);
+        eduChapterService.removeChapterByCourseId(courseId);
+        eduCourseDescriptionService.removeById(courseId);
+        int result = baseMapper.deleteById(courseId);
+        if (result == 0) {
+            throw new GuliException(20001, "课程删除失败");
+        }
     }
 }

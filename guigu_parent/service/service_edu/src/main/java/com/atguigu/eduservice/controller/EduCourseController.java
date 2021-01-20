@@ -6,6 +6,7 @@ import com.atguigu.eduservice.entity.EduCourse;
 import com.atguigu.eduservice.entity.vo.CourseInfoVo;
 import com.atguigu.eduservice.entity.vo.CoursePublishVo;
 import com.atguigu.eduservice.entity.vo.CourseQuery;
+import com.atguigu.eduservice.service.EduChapterService;
 import com.atguigu.eduservice.service.EduCourseService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -100,12 +101,8 @@ public class EduCourseController {
     @ApiOperation(value = "逻辑删除课程")
     @DeleteMapping("{courseId}")
     public R removeCourse(@PathVariable String courseId) {
-        boolean flag = eduCourseService.removeById(courseId);
-        if (flag) {
-            return R.ok();
-        } else {
-            return R.error();
-        }
+        eduCourseService.removeCourse(courseId);
+        return R.ok();
     }
 }
 
