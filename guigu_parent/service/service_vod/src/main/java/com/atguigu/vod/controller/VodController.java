@@ -1,6 +1,5 @@
 package com.atguigu.vod.controller;
 
-
 import com.atguigu.commonutils.R;
 import com.atguigu.vod.service.VodService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,9 +17,11 @@ public class VodController {
     @Autowired
     private VodService vodService;
 
+    //上传视频到阿里云
     @PostMapping("uploadAlyiVideo")
     public R uploadAlyiVideo(MultipartFile file) {
-        String videoId = vodService.uploadAly(file);
-        return R.ok().data("videoId", videoId);
+        //返回上传视频id
+        String videoId = vodService.uploadVideoAly(file);
+        return R.ok().data("videoId",videoId);
     }
 }

@@ -1,4 +1,4 @@
-package com.atguigu.vod.utils;
+package com.atguigu.vod.Utils;
 
 import org.springframework.beans.factory.InitializingBean;
 import org.springframework.beans.factory.annotation.Value;
