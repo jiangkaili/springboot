@@ -1,6 +1,7 @@
 package com.atguigu.educenter.controller;
 
 
+import com.atguigu.commonutils.JwtUtils;
 import com.atguigu.educenter.entity.UcenterMember;
 import com.atguigu.educenter.service.UcenterMemberService;
 import com.atguigu.educenter.utils.ConstantWxUtils;
@@ -49,23 +50,25 @@ public class WxApiController {
             String access_token = (String) mapAccessToken.get("access_token");
             String openid = (String) mapAccessToken.get("openid");
 
-            String baseUserInfoUrl = "https://api.weixin.qq.com/sns/userinfo" +
-                    "?access_token=%s" +
-                    "&openid=%s";
-
-            String userInfoUrl = String.format(
-                    baseUserInfoUrl,
-                    access_token,
-                    openid
-            );
-
-            String userInfo = HttpClientUtils.get(userInfoUrl);
-            HashMap userInfoMap = gson.fromJson(userInfo, HashMap.class);
-            String nickname = (String) userInfoMap.get("nickname");
-            String headimgurl = (String) userInfoMap.get("headimgurl");
 
             UcenterMember member = memberService.getOpenIdMember(openid);
             if (member == null) {
+
+                String baseUserInfoUrl = "https://api.weixin.qq.com/sns/userinfo" +
+                        "?access_token=%s" +
+                        "&openid=%s";
+
+                String userInfoUrl = String.format(
+                        baseUserInfoUrl,
+                        access_token,
+                        openid
+                );
+
+                String userInfo = HttpClientUtils.get(userInfoUrl);
+                HashMap userInfoMap = gson.fromJson(userInfo, HashMap.class);
+                String nickname = (String) userInfoMap.get("nickname");
+                String headimgurl = (String) userInfoMap.get("headimgurl");
+
                 member = new UcenterMember();
                 member.setOpenid(openid);
                 member.setNickname(nickname);
@@ -73,7 +76,10 @@ public class WxApiController {
                 memberService.save(member);
             }
 
-            return "redirect:http://localhost:3000";
+
+            String jwtToken = JwtUtils.getJwtToken(member.getId(), member.getNickname());
+
+            return "redirect:http://localhost:3000?token=" + jwtToken;
 
         } catch (Exception e) {
             throw new GuliException(20001, "扫码登录失败");
