@@ -132,7 +132,7 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
             wrapper.orderByDesc("buy_count");
         }
         if (!StringUtils.isEmpty(courseFrontVo.getGmtCreateSort())) {
-            wrapper.orderByDesc("gtm_create");
+            wrapper.orderByDesc("gmt_create");
         }
         if (!StringUtils.isEmpty(courseFrontVo.getPriceSort())) {
             wrapper.orderByDesc("price");
