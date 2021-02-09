@@ -20,7 +20,7 @@
     </select>
 
 
-    <select id="getBaseCourseInfo" resultType="com.atguigu.eduservice.entity.vo.CourseWebVo">
+    <select id="getBaseCourseInfo" resultType="com.atguigu.eduservice.entity.frontvo.CourseWebVo">
         SELECT ec.id,
                ec.title,
                ec.price,
