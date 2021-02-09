@@ -126,7 +126,7 @@ public class EduCourseServiceImpl extends ServiceImpl<EduCourseMapper, EduCourse
             wrapper.eq("subject_parent_id", courseFrontVo.getSubjectParentId());
         }
         if (!StringUtils.isEmpty(courseFrontVo.getSubjectId())) {
-            wrapper.eq("subject_parent_id", courseFrontVo.getSubjectId());
+            wrapper.eq("subject_id", courseFrontVo.getSubjectId());
         }
         if (!StringUtils.isEmpty(courseFrontVo.getBuyCountSort())) {
             wrapper.orderByDesc("buy_count");
